@@ -22,8 +22,12 @@ private final AtomicInteger nextId = new AtomicInteger(1); // ID generator
     public void processQueue() {
         RequestData data = requestQueue.poll();
         if (data != null) {
+            System.out.println("Processing \t" + data.getId() + " " + data.getTitle() + "\t processQueue size : " + requestQueue.size());
             pdfGenerator.generatePdf(data.getData(), data.getTitle());
             // Process the data...
+        }
+        else{
+            System.out.println("processQueue is empty");
         }
     }
 

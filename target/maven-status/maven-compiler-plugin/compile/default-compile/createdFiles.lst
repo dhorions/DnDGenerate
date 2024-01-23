@@ -1,7 +1,11 @@
+be\quodlibet\dndgenerate\QueueController.class
 be\quodlibet\dndgenerate\ChatGptPdfApplication.class
 be\quodlibet\dndgenerate\openai\ChatResponse.class
 be\quodlibet\dndgenerate\PdfFilesController.class
+be\quodlibet\dndgenerate\QueueService.class
 be\quodlibet\dndgenerate\openai\Usage.class
+be\quodlibet\dndgenerate\RequestData.class
+be\quodlibet\dndgenerate\RequestQueue.class
 be\quodlibet\dndgenerate\PdfController.class
 be\quodlibet\dndgenerate\UniqueFilenameGenerator.class
 be\quodlibet\dndgenerate\TextController.class
