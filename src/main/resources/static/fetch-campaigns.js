@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const listItem = document.createElement('li');
                 var a = document.createElement('a');
                 a.href = "/pdf/"+file;
-
                 a.textContent = file;
 
                 listItem.appendChild(a);
