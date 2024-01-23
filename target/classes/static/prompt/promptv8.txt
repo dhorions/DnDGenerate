@@ -1,0 +1,68 @@
+Create a dnd5e scenario for the following players and provide the response in markdown.  
+After the markdown content, include a separate section in JSON format that contains a list of all the NPCs in the format {"name":"description"}.  Separate this from the markdown section with a line containing "-----". 
+[PLAYERS]
+- Race : {characterRace}, class : {characterClass}, speciality : {characterSpecialty}, Level : {characterLevel}
+
+[/PLAYERS]
+Use the following NPC's : 
+[NPC]
+- Type : {npcType}, Race : {npcRace}, Class:  {npcClass}, level : {npcLevel}, Role : {npcRole}, Weapon : {npcWeapon}, Armour : {npcArmor}. There are {numberOfNpcs} of these.
+[/NPC]
+The campaign should be set in a {preferredSetting} setting, the tone of the campaign should be {campaignTone}.
+The title of the campaign is : {campaignName}
+Base the campaign on this story idea : {storyIdea}
+The campaign should be in a {areaType} area.
+
+
+
+If the earlier section of this text doesn't mention enough locations, make up locations that makes sense for the scenario, at least 5 locations should be included, at least 2 of them should contain interesting items.
+If the earlier section of this text doesn't mention a reward, add a reward to the scenario.
+If the earlier section of this text doesn't mention a specific objective , add one and describe it in detail.
+If none or less than 4 NPC's (non player characters) are in the earlier section of this text, add npc's that make sense for the scenario, at least 4 different NPC's or groups of NPC's should be included.
+If no challenges are described in the earlier section of this text, add some challenges that make sense for the scenario, there should be at least 3 challenges.
+If the earlier section of this text doesn't mention enough details to make a campaign, use any of the information provided to come up with something interesting.
+If something is specified as "Random", choose something that makes sense for the scenario according to the dnd5e rules.
+
+Generate the campaign add elements to the story to make it more interesting.
+The output should containg the following sections : 
+- Setting : a complete and detailed description of the setting.
+- Story : A complete description of the scenario.
+- Objective : 
+	- Description:  describe in detail the objective of the scenario, what players need to do to achieve it
+	- Reward : describe in detail the reward, include any special or magical properties and it's background if the reward is not gold or silver.
+	- Location : name of the location where it can be aqcuired, it should be described in the "Locations" section
+- NPC's :
+	- A section for each non player character (NPC) or group of similar characters.
+		- Name : characters that the players have interactions with should have a name.
+		- Detailed description of character and personality.
+		- Weapon if relevant, with attack modifiers and damage
+		- HP
+		- AC
+		- Interactions : 
+			- Encounters : the name of the encounter or encounters in the "Encounters" section where the players encounter this NPC
+			- Location : The name of the location or locations where this challenge takes place, it should be described in the "Locations" section
+			- Description of interactions with players if any.
+			- Narrative : the exact words the character speaks to the plays in each interaction.	
+- Locations :
+	- A section for each location
+		- Description : a text describing the location that the dungeon master can read to the players
+ 		- Items : if there are interesting items in this location, describe what they are, and how and where they can be found.  If the items are magic or have special properties, explain them in detail.   
+- Challenges :
+	- A section for each challenge
+		- Location : The name of the location or locations where this challenge takes place, it should be described in the "Locations" section
+		- Situation : How do the players learn about this challenge.
+		- Description : describe the challenge in detail, come up with details if needed.
+- Encounters :
+	- A section for each encounter or battle
+		- Description : a detailed description of the encounter, and it's desired outcome or objective
+		- Location :  name the location where it takes place,it should be described in the "Locations" section
+		- NPCs : Mention all NPC's that take part in this 
+	- Final Encounter
+		- If the objective is a final encounter or battle, describe this in more detail, include the sections
+			- Description : a detailed description of the encounter, and it's desired outcome or objective
+			- Location : name the location where it takes place.
+			- NPC's : Mention all NPC's that take part in this 
+
+Any other information that the dungeon master should have to play this scenario should be included.  Any information that is missing or defined as random should be added in detail.
+Include ideas for follow up missions or scenarios and provide other information that the dungeon master could use after this scenario is played out.  For each follow up idea, provide a story and details that would help to create a complete scenario for the idea.
+

@@ -1,0 +1,68 @@
+Create a dnd5e scenario and provide the response in markdown. The titles of the main sections should be in markdown format #SectionTitle, for example #NPCs
+[PLAYERS]
+- Race : {characterRace}, class : {characterClass}, speciality : {characterSpecialty}, Level : {characterLevel}
+
+[/PLAYERS]
+NPC's : 
+[NPC]
+- Type : {npcType}, Race : {npcRace}, Class:  {npcClass}, level : {npcLevel}, Role : {npcRole}, Weapon : {npcWeapon}, Armour : {npcArmor}. There are {numberOfNpcs} of these.
+[/NPC]
+campaign should have a {preferredSetting} setting and a {campaignTone} tone.
+Campaign title: {campaignName}
+Story : {storyIdea}
+Area Type: {areaType}
+
+
+
+If the previous text doesn't mention enough locations, make up locations, at least 5 locations , at least 2 with interesting items.
+If no reward is in text, add a reward.
+If no specific objective , add one and describein detail.
+If less than 4 NPC's , add npc's , at least 4 different NPC's (group).
+If no challenges , add some challenges, at least 3.
+If not enough enough details, use the info provided to make it interesting.
+When random is specified, make it up following dnd5e rules.
+
+Generate  campaign add elements to the story to make it interesting.
+The output should needs these sections : 
+- Setting : complete and detailed description ofsetting.
+- Story : complete description of the scenario.
+- Objective : 
+	- Description:  describe in detail the objective of the scenario, what players need to do to achieve it
+	- Reward : describe in detail the reward, include any special or magical properties and it's background if the reward is not gold or silver.
+	- Location : name of the location where it can be aqcuired, it should be described in the "Locations" section
+- Locations :
+	- A section for each location
+		- Description : a text describing the location that the dungeon master can read to the players
+ 		- Items : if there are interesting items in this location, describe what they are, and how and where they can be found.  If the items are magic or have special properties, explain them in detail.   
+- Challenges :
+	- A section for each challenge
+		- Location : The name of the location or locations where this challenge takes place, it should be described in the "Locations" section
+		- Situation : How do the players learn about this challenge.
+		- Description : describe the challenge in detail, come up with details if needed.
+- Encounters :
+	- A section for each encounter or battle
+		- Description : a detailed description of the encounter, and it's desired outcome or objective
+		- Location :  name the location where it takes place,it should be described in the "Locations" section
+		- NPCs : Mention all NPC's that take part in this 
+	- Final Encounter
+		- If the objective is a final encounter or battle, describe this in more detail, include the sections
+			- Description : a detailed description of the encounter, and it's desired outcome or objective
+			- Location : name the location where it takes place.
+			- NPC's : Mention all NPC's that take part in this 
+- Follow Up Ideas : Include ideas for follow up missions or scenarios and provide other information that the dungeon master could use after this scenario is played out.  For each follow up idea, provide a story and details that would help to create a complete scenario for the idea.
+- NPCs :
+	- A section for each non player character (NPC) or group of similar characters.
+		- Name : characters that the players have interactions with should have a name.
+		- Detailed description of character and personality.
+		- Weapon if relevant, with attack modifiers and damage
+		- HP
+		- AC
+		- Interactions : 
+			- Encounters : the name of the encounter or encounters in the "Encounters" section where the players encounter this NPC
+			- Location : The name of the location or locations where this challenge takes place, it should be described in the "Locations" section
+			- Description of interactions with players if any.
+			- Narrative : the exact words the character speaks to the plays in each interaction.	
+
+Any other information that the dungeon master should have to play this scenario should be included.  Any information that is missing or defined as random should be added in detail.
+
+

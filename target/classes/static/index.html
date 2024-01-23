@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DNDGenerate</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+<body>
+   
+    <div id="myModal" class="modal-overlay" style="display:none;">
+    <div class="limitMessage">
+        <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+        <p>Your daily limit is exceeded. You can create more campaigns tomorrow.</p>
+    </div>
+</div>
+    <div id="campaignReadyModal" class="modal-overlay" style="display:none;">
+    <div class="modal-content">
+        <span class="close-button" onclick="hideCampaignModal()">&times;</span>
+        <p>Your campaign is now ready, you can download it here:</p>
+        <a id="campaignDownloadLink" href="#" target="_blank">Download</a>
+    </div>
+</div>
+
+
+
+    <div class="container">
+        <div class="logo-container">
+            <img src="logo_trans.png" alt="DNDGenerate Logo" class="dndLogo">
+        </div>
+        
+        <h1>DNDGenerate</h1>
+        <form id="dndForm">
+            
+<div id="basicCampaignDetails">
+    
+
+    <h2>Basic Campaign Details</h2>
+    <textarea id="storyIdea" placeholder="Story/Idea"></textarea>
+    <input type="text" id="dmName" placeholder="Dungeon Master's Name">
+    <input type="text" id="campaignName" placeholder="Campaign Name">
+
+    <label for="preferredSetting">Preferred Setting:</label>
+    <select id="preferredSetting"></select>
+
+    <label for="campaignTone">Campaign Tone:</label>
+    <select id="campaignTone"></select>
+    <label for="areaType">Area Type:</label>
+    <select id="areaType"></select>
+</div>
+<button id="advanced" onclick="toggleAdvanced()">Advanced</button>
+
+            <!-- ... all fields as per requirements ... -->
+            <button id="addNpcBtn">Add NPC</button>
+<div id="npcContainer">         
+<div id="npcCharacter">
+    <h2>NPC Character</h2>
+    <label for="npcType">NPC Type:</label>
+    <select id="npcType"></select>
+
+    <label for="npcRace">NPC Race:</label>
+    <select id="npcRace"></select>
+
+    <label for="npcClass">NPC Class:</label>
+    <select id="npcClass"></select>
+
+    <label for="npcLevel">NPC Level:</label>
+    <select id="npcLevel">
+        <option value="Random" selected>Random</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <!-- Levels 1-20 -->
+    </select>
+
+    <label for="npcRole">NPC Role:</label>
+    <select id="npcRole"></select>
+
+    <label for="npcWeapon">NPC Weapon:</label>
+    <select id="npcWeapon"></select>
+
+    <label for="npcArmor">NPC Armor:</label>
+    <select id="npcArmor"></select>
+
+    <label for="numberOfNpcs">Number of NPCs:</label>
+    <select id="numberOfNpcs">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <!-- Numbers 1-10 -->
+    </select>
+
+    <textarea id="npcDescription" placeholder="NPC Description"></textarea>
+
+    
+</div>
+</div>
+
+            <!-- ... all fields as per requirements ... -->
+
+            <!-- Area Settings -->
+            <!-- ... all fields as per requirements ... -->
+            
+            <button id="addPartyCharacterBtn">Add Party Character</button>
+<div id="partyCharacterContainer">          
+<div id="partyCharacters">
+    <h2>Party Characters</h2>
+    <label for="characterClass">Character Class:</label>
+    <select id="characterClass"></select>
+
+    <label for="characterRace">Character Race:</label>
+    <select id="characterRace"></select>
+
+    <label for="characterLevel">Character Level:</label>
+    <select id="characterLevel">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <!-- Levels 1-20 -->
+    </select>
+
+    <label for="characterSpecialty">Character Specialty:</label>
+    <select id="characterSpecialty"></select>
+
+    
+</div></div>
+
+            <!-- ... all fields as per requirements ... -->
+
+            
+            
+            <button id="generateJsonBtn"><i class="fas fa-dice"></i> Generate</button>
+            
+            
+
+
+</form>
+    </div>
+    <div id="loadingModal" class="loading-overlay">
+    <div class="loading-message"></div>
+    <div class="donations-message">
+        Consider a small donation to keep the servers alive, and the ai happy.
+        <br/>
+        <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="quodlibet" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Donate" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+    </div>
+</div>
+     <!-- Navigation Menu -->
+    <div class="nav-bar">
+        <ul class="nav-menu">
+            <li><a href="index.html">Generate Campaign</a></li>
+            <li><a href="campaigns.html">Previously Generated Campaigns</a></li>
+        </ul>
+    </div>
+    <script src="dataLoader.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

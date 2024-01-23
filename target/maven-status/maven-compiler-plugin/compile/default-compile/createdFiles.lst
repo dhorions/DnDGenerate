@@ -1,0 +1,14 @@
+be\quodlibet\dndgenerate\ChatGptPdfApplication.class
+be\quodlibet\dndgenerate\openai\ChatResponse.class
+be\quodlibet\dndgenerate\PdfFilesController.class
+be\quodlibet\dndgenerate\openai\Usage.class
+be\quodlibet\dndgenerate\PdfController.class
+be\quodlibet\dndgenerate\UniqueFilenameGenerator.class
+be\quodlibet\dndgenerate\TextController.class
+be\quodlibet\dndgenerate\openai\Message.class
+be\quodlibet\dndgenerate\DalleImageGenerator.class
+be\quodlibet\dndgenerate\openai\Choice.class
+be\quodlibet\dndgenerate\openai\DalleResponse$Data.class
+be\quodlibet\dndgenerate\PdfGenerator.class
+be\quodlibet\dndgenerate\MarkdownToHtmlConverter.class
+be\quodlibet\dndgenerate\openai\DalleResponse.class
