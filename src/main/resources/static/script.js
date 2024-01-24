@@ -192,7 +192,7 @@ function toggleAdvanced() {
 
 function postTextToServer(text,jsonData) {
     incrementDailyCounter();
-    showLoadingIndicator();
+    //showLoadingIndicator();
     fetch('/process_text?title='+jsonData.campaignName, {
         method: 'POST',
         headers: {
@@ -205,6 +205,10 @@ function postTextToServer(text,jsonData) {
         console.log('Success:', data);
         hideLoadingIndicator();
         showCampaignModal(data);
+        showProcessingMessages();
+        // Load and refresh the data every 15 seconds
+        displayData();
+        setInterval(displayData, 15000);
 
     })
     .catch((error) => {
@@ -279,12 +283,12 @@ const loadingMessages = [
 ];
 
 
-function showLoadingIndicator() {
+function showProcessingMessages() {
     let messageIndex = 0;
     const messageDiv = document.querySelector('.loading-message');
-    const loadingModal = document.getElementById('loadingModal');
+    //const loadingModal = document.getElementById('loadingModal');
 
-    loadingModal.style.display = 'flex';
+    //loadingModal.style.display = 'flex';
     const messages = shuffleArray([...loadingMessages]);
     const messageInterval = setInterval(() => {
         if (messageIndex >= messages.length) {
@@ -295,7 +299,7 @@ function showLoadingIndicator() {
     }, 3000); // Change message every 2 seconds
 
     // Store the interval ID so it can be cleared later
-    loadingModal.dataset.intervalId = messageInterval;
+    messageDiv.dataset.intervalId = messageInterval;
 }
 
 function hideLoadingIndicator() {
@@ -314,10 +318,48 @@ function shuffleArray(array) {
     return array;
 }
 function showCampaignModal(message) {
-    document.getElementById('campaignMessage').text = message;
+    document.getElementById('loadingModal').text = message;
     document.getElementById('campaignReadyModal').style.display = 'flex';
 }
 
 function hideCampaignModal() {
     document.getElementById('campaignReadyModal').style.display = 'none';
 }
+async function fetchData(url) {
+            try {
+                let response = await fetch(url);
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return [];
+            }
+        }
+
+        async function displayData() {
+            // Clear existing data
+            document.getElementById('pdfFiles').innerHTML = '';
+            document.getElementById('queueRequests').innerHTML = '';
+
+            // Fetch and display data from /pdf-files
+            const pdfFiles = await fetchData('/pdf-files');
+            const pdfList = document.getElementById('pdfFiles');
+            pdfFiles.slice(0, 10).forEach(file => {
+                let listItem = document.createElement('li');
+               
+                var a = document.createElement('a');
+                a.href = "/pdf/"+file;
+                a.textContent = file;
+
+                listItem.appendChild(a);
+                pdfList.appendChild(listItem);
+            });
+
+            // Fetch and display data from /queue/requests
+            const queueRequests = await fetchData('/queue/requests');
+            const queueList = document.getElementById('queueRequests');
+            queueRequests.forEach(request => {
+                let listItem = document.createElement('li');
+                listItem.textContent = request.title;
+                queueList.appendChild(listItem);
+            });
+        }

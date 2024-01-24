@@ -5,7 +5,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const listElement = document.getElementById('campaign-list');
             files.forEach(file => {
                 const listItem = document.createElement('li');
-                listItem.textContent = "<a href='/pdf/"+file+"'>"+file+"</a>";
+                var a = document.createElement('a');
+                a.href = "/pdf/"+file;
+                a.textContent = file;
+
+                listItem.appendChild(a);
                 listElement.appendChild(listItem);
             });
         })
