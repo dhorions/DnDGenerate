@@ -318,7 +318,7 @@ function shuffleArray(array) {
     return array;
 }
 function showCampaignModal(message) {
-    document.getElementById('loadingModal').text = message;
+    document.getElementById('campaignMessage').text = message;
     document.getElementById('campaignReadyModal').style.display = 'flex';
 }
 
