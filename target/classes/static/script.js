@@ -362,4 +362,24 @@ async function fetchData(url) {
                 listItem.textContent = request.title;
                 queueList.appendChild(listItem);
             });
+            //update currently processing campaign
+            updateCurrentlyProcessing();
         }
+async function updateCurrentlyProcessing() {
+    try {
+        let response = await fetch('/requests/current');
+        let data = await response.json();
+        let listElement = document.getElementById('currentlyProcessing');
+        listElement.innerHTML = '';
+
+        if (data) {
+            let listItem = document.createElement('li');
+            listItem.textContent = data; // Assuming the response data is the text to be displayed
+            listElement.appendChild(listItem.title);
+        } else {
+            listElement.innerHTML = '<li>Nothing</li>';
+        }
+    } catch (error) {
+        console.error('Error fetching current request:', error);
+    }
+}

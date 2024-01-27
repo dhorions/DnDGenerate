@@ -86,7 +86,7 @@ input[type=submit]:hover {
     border-radius: 5px;
 }
 
-ul, ol {
+ul, ol,a {
     font-family: 'Times New Roman', serif;
     color: #3e2723;
 }
