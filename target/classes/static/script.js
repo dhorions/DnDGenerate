@@ -367,15 +367,15 @@ async function fetchData(url) {
         }
 async function updateCurrentlyProcessing() {
     try {
-        let response = await fetch('/requests/current');
+        let response = await fetch('/queue/requests/current');
         let data = await response.json();
         let listElement = document.getElementById('currentlyProcessing');
         listElement.innerHTML = '';
 
         if (data) {
             let listItem = document.createElement('li');
-            listItem.textContent = data; // Assuming the response data is the text to be displayed
-            listElement.appendChild(listItem.title);
+            listItem.textContent = data.title; // Assuming the response data is the text to be displayed
+            listElement.appendChild(listItem);
         } else {
             listElement.innerHTML = '<li>Nothing</li>';
         }

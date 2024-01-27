@@ -367,7 +367,7 @@ async function fetchData(url) {
         }
 async function updateCurrentlyProcessing() {
     try {
-        let response = await fetch('/requests/current');
+        let response = await fetch('/queue/requests/current');
         let data = await response.json();
         let listElement = document.getElementById('currentlyProcessing');
         listElement.innerHTML = '';
