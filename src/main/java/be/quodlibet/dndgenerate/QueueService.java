@@ -11,8 +11,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 public class QueueService {
     private final RequestQueue requestQueue = new RequestQueue();
     private final PdfGenerator pdfGenerator = new PdfGenerator();
-private final AtomicInteger nextId = new AtomicInteger(1); // ID generator
-
+    private final AtomicInteger nextId = new AtomicInteger(1); // ID generator
+    private RequestData currentlyProcessing;
     public void addToQueue(RequestData data) {
         data.setId(nextId.getAndIncrement()); // Set unique ID
         requestQueue.add(data);
@@ -23,7 +23,9 @@ private final AtomicInteger nextId = new AtomicInteger(1); // ID generator
         RequestData data = requestQueue.poll();
         if (data != null) {
             System.out.println("Processing \t" + data.getId() + " " + data.getTitle() + "\t processQueue size : " + requestQueue.size());
+            currentlyProcessing = data;
             pdfGenerator.generatePdf(data.getData(), data.getTitle());
+            currentlyProcessing = null;
             // Process the data...
         }
         else{
@@ -37,6 +39,9 @@ private final AtomicInteger nextId = new AtomicInteger(1); // ID generator
 
     public List<RequestData> listQueue() {
         return new ArrayList<>(requestQueue.getQueue());
+    }
+    public RequestData getCurrentlyProcessing() {
+        return currentlyProcessing;
     }
 
     // Other necessary methods...

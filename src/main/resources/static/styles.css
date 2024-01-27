@@ -188,11 +188,14 @@ button:hover {
     display: none; /* Hidden by default */
     position: fixed;
     z-index: 1000; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Black with a bit of transparency */
+    left: 10%;
+    top: 10%;
+    width: 80%;
+    height: 80%;
+    //background-color: rgba(0, 0, 0, 0.6); /* Black with a bit of transparency */
+      background-color: #ede0d4;
+      border: solid 2px #646464; /* Dark gray border for contrast */
+     box-shadow: 0 0 10px rgba(0,0,0,0.5);
    
     align-items: center;
     justify-content: center;
@@ -200,7 +203,7 @@ button:hover {
 
 .loading-message {
     text-align: center;
-    color: white;
+    //color: black;
     font-size: 20px;
     display:block;
     width:100%
@@ -209,7 +212,7 @@ button:hover {
 .donations-message
 {
     text-align: center;
-    color: white;
+    //color: white;
     font-size: 12px;
     display:block;
     width:100%
@@ -241,6 +244,9 @@ button:hover {
     background-color: #8B4513; /* Adjust color as needed */
     padding: 10px 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: absolute;
+    bottom: 0;;
+    width:100%
 }
 
 .nav-bar .nav-menu {
@@ -271,7 +277,7 @@ button:hover {
 }
 /* End of Navigation Menu Styles */
 
-.loading-overlay, .loading-message, .donations-message, ul, li {
+ .loading-message, .donations-message, ul, li {
             display: block;
             width: 100%;
         }

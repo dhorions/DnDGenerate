@@ -178,21 +178,29 @@
 </form>
     </div>
 <div id="loadingModal" class="loading-overlay">
-    <div class="loading-message"><p id="responseMessage" /></div>
+    <div class="loading-message"></div>
     <p id="campaignMessage"></p>
         <div>
-            <h2>Queued Campaigns</h2>
+            <h4>Queued Campaigns</h4>
             <ul id="queueRequests"></ul>
-            <h2>Recently Generated Campaigns</h2>  
+            <h4>Currently Processing</h4>
+            <ul id="currentlyProcessing"></ul>
+            <h4>Recently Generated Campaigns</h4>  
             <ul id="pdfFiles"></ul>
 
         </div>
-        <a id="campaignDownloadLink" href="campaigns.html" target="_blank">All reviously generated campaigns</a>
-        <a id="queueLink" href="queue.html" target="_blank">Processing Queue</a>
+            
         <div class="donations-message">
                     Consider a small donation to keep the servers alive, and the ai happy.
                     <br/>
                     <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="quodlibet" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Donate" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+        <div class="nav-bar">
+            <ul class="nav-menu">
+                <li><a href="queue.html">Processing Queue</a></li>
+                <li><a href="campaigns.html">Previously Generated Campaigns</a></li>
+                <li><a href="index.html">Generate New Campaign</a></li>
+            </ul>
+        </div>
         </div>
 </div>
      <!-- Navigation Menu -->
@@ -200,6 +208,7 @@
         <ul class="nav-menu">
             <li><a href="index.html">Generate Campaign</a></li>
             <li><a href="campaigns.html">Previously Generated Campaigns</a></li>
+            <li><a href="queue.html">Processing Queue</a></li>
         </ul>
     </div>
     <script src="dataLoader.js"></script>

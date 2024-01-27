@@ -18,4 +18,8 @@ public class QueueController {
     public List<RequestData> getAllRequests() {
         return queueService.listQueue();
     }
+    @GetMapping("/requests/current")
+    public RequestData getCurrentlyProcessing() {
+        return queueService.getCurrentlyProcessing();
+    }
 }

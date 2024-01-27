@@ -319,7 +319,7 @@ function shuffleArray(array) {
 }
 function showCampaignModal(message) {
     document.getElementById('campaignMessage').text = message;
-    document.getElementById('campaignReadyModal').style.display = 'flex';
+    document.getElementById('loadingModal').style.display = 'flex';
 }
 
 function hideCampaignModal() {
