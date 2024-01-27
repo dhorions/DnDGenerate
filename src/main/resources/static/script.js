@@ -374,8 +374,8 @@ async function updateCurrentlyProcessing() {
 
         if (data) {
             let listItem = document.createElement('li');
-            listItem.textContent = data; // Assuming the response data is the text to be displayed
-            listElement.appendChild(listItem.title);
+            listItem.textContent = data.title; // Assuming the response data is the text to be displayed
+            listElement.appendChild(listItem);
         } else {
             listElement.innerHTML = '<li>Nothing</li>';
         }
