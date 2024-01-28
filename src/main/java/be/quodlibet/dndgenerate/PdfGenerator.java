@@ -40,9 +40,14 @@ import org.springframework.http.ResponseEntity;
  * @author dries
  */
 public class PdfGenerator {
-     private static final String OPENAI_URL = "https://api.openai.com/v1/chat/completions";// "https://api.openai.com/v1/engines/gpt-4/completions";
+     private static final String OPENAI_URL = System.getenv("OPENAI_URL") != null && !System.getenv("OPENAI_URL").isEmpty() 
+                                         ? System.getenv("OPENAI_URL") 
+                                         : "https://api.openai.com/v1/chat/completions";
+
     private static final String OPENAI_KEY = System.getenv("OPENAI_API_KEY");
-    private static final String PDF_PATH = System.getenv("DNDGENERATE_PDF_FOLDER");
+    private static final String PDF_PATH = System.getenv("DNDGENERATE_PDF_FOLDER") != null && !System.getenv("DNDGENERATE_PDF_FOLDER").isEmpty() 
+    ? System.getenv("DNDGENERATE_PDF_FOLDER") 
+    : System.getProperty("java.io.tmpdir");
     
     public static ResponseEntity<String> generatePdf(String text, String title)
     {
@@ -53,7 +58,7 @@ public class PdfGenerator {
         //text = text.replaceAll("\"", "'").replaceAll("\n","\\n").replaceAll("\r","");
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpPost request = new HttpPost(OPENAI_URL);
-            
+      
             request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer "+OPENAI_KEY);
             request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
 

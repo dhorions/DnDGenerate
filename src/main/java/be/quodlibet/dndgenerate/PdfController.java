@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 public class PdfController {
-    private static final String PDF_PATH = System.getenv("DNDGENERATE_PDF_FOLDER");
+    private static final String PDF_PATH = System.getenv("DNDGENERATE_PDF_FOLDER") != null && !System.getenv("DNDGENERATE_PDF_FOLDER").isEmpty() 
+    ? System.getenv("DNDGENERATE_PDF_FOLDER") 
+    : System.getProperty("java.io.tmpdir");
     @GetMapping("/pdf/{filename}")
     public ResponseEntity<Resource> getPdf(@PathVariable("filename") String filename) {
         Path pdfPath = Paths.get(PDF_PATH, filename);

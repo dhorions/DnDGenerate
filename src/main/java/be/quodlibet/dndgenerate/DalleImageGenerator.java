@@ -10,8 +10,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -19,7 +17,12 @@ import java.util.logging.Logger;
 
 public class DalleImageGenerator {
 
-    private static final String DALLE_API_URL = "https://api.openai.com/v1/images/generations";
+     private static final String DALLE_API_URL = System.getenv("DALLE_API_URL") != null && !System.getenv("DALLE_API_URL").isEmpty() 
+                                         ? System.getenv("OPENAI_URL") 
+                                         : "https://api.openai.com/v1/images/generations";
+    private static final String DALLE_API_MODEL = System.getenv("DALLE_API_MODEL") != null && !System.getenv("DALLE_API_MODEL").isEmpty() 
+    ? System.getenv("DALLE_API_MODEL") 
+    : "dall-e-3";
     private static final String API_KEY = System.getenv("OPENAI_API_KEY");
     public static Map<String,String>  generateImages(Map<String,String> imageDescriptions, String campaignTitle)
     {
@@ -40,15 +43,25 @@ public class DalleImageGenerator {
 
         return resultMap;
     }
+    public static String replacePlaceholders(String input, String name, String description,String campaignTitle) {
+        if (input == null) {
+            return null;
+        }
+        String replacedString = input.replace("{name}", name);
+        replacedString = replacedString.replace("{description}", description);
+        replacedString = replacedString.replace("{campaignTitle}", campaignTitle);
+        return replacedString;
+    }
     public static String generateImage(String name, String description,String campaignTitle)
     {
         Gson gson = new Gson();
         JsonObject requestBody = new JsonObject();
-        requestBody.addProperty("prompt", "Create a portrait of a dnd5e character called "+name + " described as  " + description + " for a campaign titled : " 
-                + campaignTitle+".  The focus is solely on the character in a simple portrait style, without any background elements or hints about his quest");
+        requestBody.addProperty("prompt", replacePlaceholders(PromptController.getPromptValue("story"),name,description,campaignTitle));
+       /* requestBody.addProperty("prompt", "Create a portrait of a dnd5e character called "+name + " described as  " + description + " for a campaign titled : " 
+                + campaignTitle+".  The focus is solely on the character in a simple portrait style, without any background elements or hints about his quest");*/
         requestBody.addProperty("n", 1);
         requestBody.addProperty("size","1024x1024");
-        requestBody.addProperty("model","dall-e-3");
+        requestBody.addProperty("model",DALLE_API_MODEL);
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
             HttpPost request = new HttpPost(DALLE_API_URL);
             request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + API_KEY);

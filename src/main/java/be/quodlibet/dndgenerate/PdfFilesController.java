@@ -11,7 +11,9 @@ import java.util.Objects;
 @RestController
 public class PdfFilesController {
 
-    private static final String PDF_PATH = System.getenv("DNDGENERATE_PDF_FOLDER");
+    private static final String PDF_PATH = System.getenv("DNDGENERATE_PDF_FOLDER") != null && !System.getenv("DNDGENERATE_PDF_FOLDER").isEmpty() 
+    ? System.getenv("DNDGENERATE_PDF_FOLDER") 
+    : System.getProperty("java.io.tmpdir");
 
     @GetMapping("/pdf-files")
     public List<String> listPdfFiles() {

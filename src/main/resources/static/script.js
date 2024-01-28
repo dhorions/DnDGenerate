@@ -89,7 +89,9 @@ function generateJson()
             formData[element.id] = element.value;
         }
     }
-    console.log(JSON.stringify(formData)); // For now, we just log the JSON to the console
+    const outputText = replacePlaceholders(jsonData, fetchStory());
+    postTextToServer(outputText, jsonData);
+    /*console.log(JSON.stringify(formData)); // For now, we just log the JSON to the console
     // Example usage
     const jsonData = formData;
     const promptFileUrl = 'prompt/promptv9.txt';
@@ -100,10 +102,10 @@ function generateJson()
         postTextToServer(outputText, jsonData);
     })
     .catch(error => console.error(error));
-    }
+    }*/
     
 }
-function loadPromptFile(url) {
+/*function loadPromptFile(url) {
     return fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -112,7 +114,7 @@ function loadPromptFile(url) {
             return response.text();
         })
         .catch(error => console.error('Error fetching the prompt file:', error));
-}
+}*/
 function replacePlaceholders(jsonData, promptText) {
     // Function to replace placeholders in a template
     function replaceTemplate(template, data) {
@@ -592,20 +594,38 @@ async function fetchData(url) {
             updateCurrentlyProcessing();
         }
 async function updateCurrentlyProcessing() {
+     let listElement = document.getElementById('currentlyProcessing');
+     listElement.innerHTML = '';
     try {
         let response = await fetch('/queue/requests/current');
         let data = await response.json();
-        let listElement = document.getElementById('currentlyProcessing');
-        listElement.innerHTML = '';
+       
+        
 
         if (data) {
             let listItem = document.createElement('li');
             listItem.textContent = data.title; // Assuming the response data is the text to be displayed
             listElement.appendChild(listItem);
         } else {
-            listElement.innerHTML = '<li>Nothing</li>';
+            listElement.innerHTML = 'Nothing';
         }
     } catch (error) {
+        let listItem = document.createElement('li');
+            listItem.textContent = 'Nothing'; // Assuming the response data is the text to be displayed
         console.error('Error fetching current request:', error);
+    }
+}
+
+async function fetchStory() {
+    try {
+        const response = await fetch('/prompt/story');
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const text = await response.text();
+        return text;
+    } catch (error) {
+        console.error('Error fetching story:', error);
+        return '';
     }
 }
