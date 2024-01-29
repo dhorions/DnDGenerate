@@ -89,8 +89,7 @@ function generateJson()
             formData[element.id] = element.value;
         }
     }
-    const outputText = replacePlaceholders(jsonData, fetchStory());
-    postTextToServer(outputText, jsonData);
+    fetchStory();
     /*console.log(JSON.stringify(formData)); // For now, we just log the JSON to the console
     // Example usage
     const jsonData = formData;
@@ -553,6 +552,15 @@ function showCampaignModal(message) {
 function hideCampaignModal() {
     document.getElementById('campaignReadyModal').style.display = 'none';
 }
+async function fetchStringData(url) {
+    try {
+        let response = await fetch(url);
+        return await response.text();
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return "";
+    }
+}
 async function fetchData(url) {
             try {
                 let response = await fetch(url);
@@ -617,15 +625,22 @@ async function updateCurrentlyProcessing() {
 }
 
 async function fetchStory() {
-    try {
+    /*try {
         const response = await fetch('/prompt/story');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const text = await response.text();
-        return text;
+        const jsonData = formData;
+        const outputText = replacePlaceholders(jsonData, text);
+        postTextToServer(outputText, jsonData);
     } catch (error) {
         console.error('Error fetching story:', error);
         return '';
-    }
+    }*/
+    const text = await fetchStringData('/prompt/story');
+    const jsonData = formData;
+        const outputText = replacePlaceholders(jsonData, text);
+        postTextToServer(outputText, jsonData);
+}
 }

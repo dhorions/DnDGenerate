@@ -14,17 +14,25 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+@Service
 public class DalleImageGenerator {
 
      private static final String DALLE_API_URL = System.getenv("DALLE_API_URL") != null && !System.getenv("DALLE_API_URL").isEmpty() 
                                          ? System.getenv("OPENAI_URL") 
                                          : "https://api.openai.com/v1/images/generations";
-    private static final String DALLE_API_MODEL = System.getenv("DALLE_API_MODEL") != null && !System.getenv("DALLE_API_MODEL").isEmpty() 
+     private final PromptController promptController;
+    @Autowired
+    public DalleImageGenerator(PromptController promptController) {
+        this.promptController = promptController;
+    }
+     
+    private  final String DALLE_API_MODEL = System.getenv("DALLE_API_MODEL") != null && !System.getenv("DALLE_API_MODEL").isEmpty() 
     ? System.getenv("DALLE_API_MODEL") 
     : "dall-e-3";
     private static final String API_KEY = System.getenv("OPENAI_API_KEY");
-    public static Map<String,String>  generateImages(Map<String,String> imageDescriptions, String campaignTitle)
+    public  Map<String,String>  generateImages(Map<String,String> imageDescriptions, String campaignTitle)
     {
        HashMap<String, String> resultMap = new HashMap<>();
 
@@ -52,11 +60,11 @@ public class DalleImageGenerator {
         replacedString = replacedString.replace("{campaignTitle}", campaignTitle);
         return replacedString;
     }
-    public static String generateImage(String name, String description,String campaignTitle)
+    public  String generateImage(String name, String description,String campaignTitle)
     {
         Gson gson = new Gson();
         JsonObject requestBody = new JsonObject();
-        requestBody.addProperty("prompt", replacePlaceholders(PromptController.getPromptValue("story"),name,description,campaignTitle));
+        requestBody.addProperty("prompt", replacePlaceholders(promptController.getPromptValue("story"),name,description,campaignTitle));
        /* requestBody.addProperty("prompt", "Create a portrait of a dnd5e character called "+name + " described as  " + description + " for a campaign titled : " 
                 + campaignTitle+".  The focus is solely on the character in a simple portrait style, without any background elements or hints about his quest");*/
         requestBody.addProperty("n", 1);

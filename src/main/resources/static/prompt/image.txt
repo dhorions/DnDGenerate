@@ -1,0 +1,1 @@
+Create a portrait of a dnd5e character called {name} described as  {description}} for a campaign titled : {campaignTitle} . The focus is solely on the character in a simple portrait style, without any background elements or hints about his quest");*/

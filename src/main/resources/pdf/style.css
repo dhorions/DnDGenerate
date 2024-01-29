@@ -1,0 +1,35 @@
+body {
+    background-color: #fdf1dc; /* Parchment-like background */
+    color: #333333; /* Dark text for readability */
+    font-family: 'Georgia', serif; /* Font that gives a fantasy feel */
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #4a2c2a; /* Dark red-brown color for headings */
+    text-align: left;
+    text-shadow: 1px 1px 2px #8a7f7f; /* Subtle shadow for depth */
+    margin-bottom: 0.5em;
+}
+
+
+
+li {
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+    padding-left: 20px;
+    text-indent: -20px; /* Aligns text with other content */
+}
+
+li:before {
+   
+    color: #6b4b3e; /* Color for bullet points */
+    font-weight: bold; /* Makes bullet points stand out */
+}
+
+p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 1em;
+    text-align: justify; /* Justified text for a book-like feel */
+}

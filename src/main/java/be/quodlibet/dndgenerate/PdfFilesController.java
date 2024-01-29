@@ -13,10 +13,11 @@ public class PdfFilesController {
 
     private static final String PDF_PATH = System.getenv("DNDGENERATE_PDF_FOLDER") != null && !System.getenv("DNDGENERATE_PDF_FOLDER").isEmpty() 
     ? System.getenv("DNDGENERATE_PDF_FOLDER") 
-    : System.getProperty("java.io.tmpdir");
+    : System.getProperty("java.io.tmpdir");     
 
     @GetMapping("/pdf-files")
     public List<String> listPdfFiles() {
+        System.out.println("Looking for pdf folder in : " + PDF_PATH);
         File folder = new File(PDF_PATH);
         List<File> pdfFiles = new ArrayList<>();
 
