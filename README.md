@@ -8,9 +8,9 @@
 DnDGenerate is an AI tool to convert you idea in a DnD Scenario.
 
 ## Enchanted Features
-- Campaign Creation: Provide your idea, as simple or elaborate as you want, a campaign will be generated, with setting, goals, locations, challenges, NPC description and stats will be generated.
-- NPC Images: For each of the NPC's in your campaign, an image will be generated.
-- PDF download: The campaign will be downloadable as a pdf.
+- **Campaign Creation:** Provide your idea, as simple or elaborate as you want, a campaign will be generated, with setting, goals, locations, challenges, NPC description and stats will be generated.
+- **NPC Images:** For each of the NPC's in your campaign, an image will be generated.
+- **PDF download:** The campaign will be downloadable as a pdf.
 
 ## Alchemist's Setup
 ### Docker 
