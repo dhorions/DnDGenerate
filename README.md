@@ -21,7 +21,7 @@ docker run --name 'DnDGenerate' quodlibetbe/dndgenerate
 
 ## Scroll of Environment Variables
 The following environment variables can be used to configure DnDGenerate
- - **OPENAI_API_KEY** : https://platform.openai.com/api-keys
+ - **OPENAI_API_KEY** : **You need your own Openai API Key to run this project**, get it at https://platform.openai.com/api-keys
  - **OPENAI_URL** : Endpoint for openai chat completion api.  Default value is  https://api.openai.com/v1/chat/completions.
  - **DALLE_API_URL** : Endpoint for openai image generation api. Default value is https://api.openai.com/v1/images/generations.
  - **DALLE_API_MODEL** : Model using for image generation. Default value is dall-e-3.
