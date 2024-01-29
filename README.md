@@ -6,11 +6,16 @@
 [Describe the purpose and scope of your project, focusing on its relation to D&D 5e.]
 
 ## Enchanted Features
-- Spellbinding Feature 1: [Description]
-- Mystical Feature 2: [Description]
-- Arcane Feature 3: [Description]
+- Campaign Creation: Provide your idea, as simple or elaborate as you want, a campaign will be generated, with setting, goals, locations, challenges, NPC description and stats will be generated.
+- NPC Images: For each of the NPC's in your campaign, an image will be generated.
+- PDF download: The campaign will be downloadable as a pdf.
 
 ## Alchemist's Setup
+### Docker 
+```bash
+docker run --name 'DnDGenerate' quodlibetbe/dndgenerate 
+```
+### 
 ```bash
 # Instructions for concocting the perfect setup
 ```
