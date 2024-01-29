@@ -1,11 +1,11 @@
 
-#DNDGenerate: An AI tool to convert you idea in a DnD Scenario
+#DNDGenerate
 
 
 <img src="https://github.com/dhorions/backend/blob/main/src/main/resources/static/logo_trans.png?raw=true" width="200"/>
 
 ## Scroll of Introduction
-[Describe the purpose and scope of your project, focusing on its relation to D&D 5e.]
+DnDGenerate is an AI tool to convert you idea in a DnD Scenario.
 
 ## Enchanted Features
 - Campaign Creation: Provide your idea, as simple or elaborate as you want, a campaign will be generated, with setting, goals, locations, challenges, NPC description and stats will be generated.
