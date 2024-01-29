@@ -39,6 +39,7 @@ You can find or create api keys here : https://platform.openai.com/api-keys.
 I wanted to learn about chatgpt and how I could leverage it.  I came up with an idea for an experiment : use chatgpt to build a complete software project, including frontend and backend.  Now all I needed was an idea.  I thought it would be nice if the project would also use the chatgpt api's internally, so I could learn about that as well.  
 Seeing my 9 year old son spending a lot of his time writing and drawing and researching for his DnD scenario, I thought it would be interesting to use dnd campaign building in this experiment.
 
+<img src="https://github.com/dhorions/DnDGenerate/blob/image/humanintelligence.jpg?raw=true" />
 
 ## Guild of Contributors
 If you want to contribute to this project, creating a pull request is the way to go.
