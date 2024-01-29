@@ -1,6 +1,8 @@
 
 #DNDGenerate: An AI tool to convert you idea in a DnD Scenario
-![DnDGenerate Logo](https://github.com/dhorions/backend/blob/main/src/main/resources/static/logo_trans.png?raw=true)
+
+
+<img src="https://github.com/dhorions/backend/blob/main/src/main/resources/static/logo_trans.png?raw=true" width="200"/>
 
 ## Scroll of Introduction
 [Describe the purpose and scope of your project, focusing on its relation to D&D 5e.]
