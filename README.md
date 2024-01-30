@@ -11,6 +11,11 @@ Hearken, brave adventurers and cunning dungeon masters! In the realm of endless 
 - **Portraits of the Realm's Denizens:** For each NPC woven into your tale, the Tome renders lifelike portraits, capturing their very essence, as if plucked from the realm itself.
 - **Arcanum of PDF Download:** In the ancient tradition of preserving knowledge, the Tome of DNDGenerate offers a magical rite to transcribe your crafted campaigns into Scrolls of Portable Document Format (PDF). With a mere incantation, your tales of heroes, monsters, and far-flung lands will be etched into timeless scrolls, ready to be shared with fellow adventurers across distant realms. Unleash this spell, and watch as your digital creations take on a physical form, ready for the hands of eager players gathered around the table of destiny.
 
+## Chronicles of Fabled Quests
+- [Dwarven Thieves](https://github.com/dhorions/DnDGenerate/blob/examples/examples/DnDGenerate%20%20Campaign%20-%20Dwarven%20Thieves.pdf)
+- [The Giants](https://github.com/dhorions/DnDGenerate/blob/examples/examples/DnDGenerate%20Campaing%20-%20The%20Giants.pdf?raw=true)
+
+  
 ## Alchemist's Setup
 ### Run with Docker 
 ```bash
