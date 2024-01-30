@@ -4,23 +4,25 @@
 <img src="https://github.com/dhorions/backend/blob/main/src/main/resources/static/logo_trans.png?raw=true" width="200"/>
 
 ## Scroll of Introduction
-DnDGenerate is an AI tool to convert you idea in a DnD Scenario.
+Hearken, brave adventurers and cunning dungeon masters! In the realm of endless imagination, the Tome of DNDGenerate emerges as your most trusted ally. This mystical tool, birthed from the ancient wisdom of arcane coders, transmutes your wildest ideas into sprawling D&D campaigns.
 
 ## Enchanted Features
-- **Campaign Creation:** Provide your idea, as simple or elaborate as you want, a campaign will be generated, with setting, goals, locations, challenges, NPC description and stats will be generated.
-- **NPC Images:** For each of the NPC's in your campaign, an image will be generated.
-- **PDF download:** The campaign will be downloadable as a pdf.
+- **Oracles of Campaign Creation:** Whisper your visions, be they mere fragments or epic tales, into the ears of this oracle. Behold as it conjures settings, quests, treacherous challenges, and detailed NPCs, complete with their lore and statistics.
+- **Portraits of the Realm's Denizens:** For each NPC woven into your tale, the Tome renders lifelike portraits, capturing their very essence, as if plucked from the realm itself.
+- **Arcanum of PDF Download:** In the ancient tradition of preserving knowledge, the Tome of DNDGenerate offers a magical rite to transcribe your crafted campaigns into Scrolls of Portable Document Format (PDF). With a mere incantation, your tales of heroes, monsters, and far-flung lands will be etched into timeless scrolls, ready to be shared with fellow adventurers across distant realms. Unleash this spell, and watch as your digital creations take on a physical form, ready for the hands of eager players gathered around the table of destiny.
 
 ## Alchemist's Setup
 ### Run with Docker 
 ```bash
-# Instructions for concocting the perfect setup
+#Summon the Arcane Engine
 docker run --name DnDGenerate quodlibetbe/dndgenerate -e OPENAI_API_KEY=[YOUR_OPENAI_API_KEY] -p 8080:8080
 ```
 ### Build with Docker
+
 If you build the java project locally and make changes, use this command to create a docker image.
 
 ```bash
+#Invoke the command of creation
 docker build --build-arg JAR_FILE=target/ChatGptPdfApplication-1.0-SNAPSHOT.jar -t quodlibetbe/dndgenerate .
 ```
 
