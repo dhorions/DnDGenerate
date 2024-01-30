@@ -6,6 +6,10 @@
 ## Scroll of Introduction
 Hearken, brave adventurers and cunning dungeon masters! In the realm of endless imagination, the Tome of DNDGenerate emerges as your most trusted ally. This mystical tool, birthed from the ancient wisdom of arcane coders, transmutes your wildest ideas into sprawling D&D campaigns.
 
+## Visions of the Arcane Mechanism
+
+https://github.com/dhorions/DnDGenerate/assets/1682004/8e54b405-6d45-40cd-a7ad-c6de84f1f5be
+
 ## Enchanted Features
 - **Oracles of Campaign Creation:** Whisper your visions, be they mere fragments or epic tales, into the ears of this oracle. Behold as it conjures settings, quests, treacherous challenges, and detailed NPCs, complete with their lore and statistics.
 - **Portraits of the Realm's Denizens:** For each NPC woven into your tale, the Tome renders lifelike portraits, capturing their very essence, as if plucked from the realm itself.
