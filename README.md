@@ -12,12 +12,17 @@ DnDGenerate is an AI tool to convert you idea in a DnD Scenario.
 - **PDF download:** The campaign will be downloadable as a pdf.
 
 ## Alchemist's Setup
-### Docker 
+### Run with Docker 
 ```bash
 # Instructions for concocting the perfect setup
-docker run --name 'DnDGenerate' quodlibetbe/dndgenerate 
+docker run --name DnDGenerate quodlibetbe/dndgenerate -e OPENAI_API_KEY=[YOUR_OPENAI_API_KEY] -p 8080:8080
 ```
+### Build with Docker
+If you build the java project locally and make changes, use this command to create a docker image.
 
+```bash
+docker build --build-arg JAR_FILE=target/ChatGptPdfApplication-1.0-SNAPSHOT.jar -t quodlibetbe/dndgenerate .
+```
 
 ## Scroll of Environment Variables
 The following environment variables can be used to configure DnDGenerate
@@ -45,7 +50,7 @@ Seeing my 9 year old son spending a lot of his time writing and drawing and rese
 If you want to contribute to this project, creating a pull request is the way to go.
 
 ## Scroll of License
-[Specify the license under which your project is released.]
+[MPL-2.0](https://github.com/dhorions/DnDGenerate/blob/main/LICENSE)
 
 ## Hall of Acknowledgments
 - dhorions
