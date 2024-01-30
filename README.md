@@ -49,7 +49,7 @@ Seeing my 9 year old son spending a lot of his time writing and drawing and rese
 <img src="https://github.com/dhorions/DnDGenerate/blob/image/humanintelligence.jpg?raw=true" />
 
 ## Guild of Contributors
-If you want to contribute to this project, creating a pull request is the way to go.
+Should you wish to join this grand quest and bestow your arcane insights upon the Tome, crafting a Scroll of Request is your path to glory. These scrolls, known in elder tongues as 'pull requests,' are the means by which you can inscribe your own spells and sagas into the annals of DNDGenerate.
 
 ## Scroll of License
 [MPL-2.0](https://github.com/dhorions/DnDGenerate/blob/main/LICENSE)
