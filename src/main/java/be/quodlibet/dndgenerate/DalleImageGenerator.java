@@ -64,7 +64,7 @@ public class DalleImageGenerator {
     {
         Gson gson = new Gson();
         JsonObject requestBody = new JsonObject();
-        requestBody.addProperty("prompt", replacePlaceholders(promptController.getPromptValue("story"),name,description,campaignTitle));
+        requestBody.addProperty("prompt", replacePlaceholders(promptController.getPromptValue("image"),name,description,campaignTitle));
        /* requestBody.addProperty("prompt", "Create a portrait of a dnd5e character called "+name + " described as  " + description + " for a campaign titled : " 
                 + campaignTitle+".  The focus is solely on the character in a simple portrait style, without any background elements or hints about his quest");*/
         requestBody.addProperty("n", 1);

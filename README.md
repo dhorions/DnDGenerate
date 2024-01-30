@@ -15,7 +15,7 @@ Hearken, brave adventurers and cunning dungeon masters! In the realm of endless 
 ### Run with Docker 
 ```bash
 #Summon the Arcane Engine
-docker run --name DnDGenerate quodlibetbe/dndgenerate -e OPENAI_API_KEY=[YOUR_OPENAI_API_KEY] -p 8080:8080
+docker run -p 8080:8080 -e OPENAI_API_KEY=[YOUR_OPENAI_API_KEY]  quodlibetbe/dndgenerate  
 ```
 ### Build with Docker
 

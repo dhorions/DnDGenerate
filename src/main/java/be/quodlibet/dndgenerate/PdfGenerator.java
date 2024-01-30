@@ -18,8 +18,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -71,128 +73,122 @@ public class PdfGenerator {
     public  ResponseEntity<String> generatePdf(String text, String title)
     {
         
-        try {
+        if (!isValidInput(text)) {
+            return ResponseEntity.badRequest().body("Invalid input");
+        }
+        //Init resources
+        copyFileToTemp("pdf/logo_trans.png");
+        copyFileToTemp("pdf/style.css");
+        //text = text.replaceAll("\"", "'").replaceAll("\n","\\n").replaceAll("\r","");
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            HttpPost request = new HttpPost(OPENAI_URL);
             
-            if (!isValidInput(text)) {
-                return ResponseEntity.badRequest().body("Invalid input");
-            }
-            //Init resources
-            copyFileToTemp("pdf/logo_trans.png");
-            copyFileToTemp("pdf/style.css");
-            //text = text.replaceAll("\"", "'").replaceAll("\n","\\n").replaceAll("\r","");
-            try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-                HttpPost request = new HttpPost(OPENAI_URL);
-                
-                request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer "+OPENAI_KEY);
-                request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
-                
-                //String jsonBody = "{\"prompt\": \"" + text + "\", \"max_tokens\": 150}";
-                // Using Jackson to create JSON
-                ObjectMapper mapper = new ObjectMapper();
-                Map<String, Object> jsonMap = new HashMap<>();
-                List<Map<String, Object>> messages = new ArrayList();
-                Map <String, Object> msg = new HashMap();
-                msg.put("role", "system");
-                msg.put("content", "You are a creative writer with good knowledge of dnd5e");
-                messages.add(msg);
-                Map <String, Object> msgPrompt = new HashMap();
-                msgPrompt.put("role", "user");
-                msgPrompt.put("content", text);
-                messages.add(msgPrompt);
-                jsonMap.put("messages", messages);
-                jsonMap.put("max_tokens", 3000);
-                jsonMap.put("model", "gpt-3.5-turbo");
-                /*List<String> formats = new ArrayList();
-                formats.add("markdown");
-                formats.add("csv");*/
-                jsonMap.put("format", "markdown");
-                
-                
-                Gson gson = new Gson();
-                String jsonBody = gson.toJson(jsonMap);
-                // jsonBody = "";
-                System.out.println("Sent to gpt\t" +jsonBody);
-                //return ResponseEntity.ok(jsonBody);
-                request.setEntity(new StringEntity(jsonBody));
-                
-                String responseString = EntityUtils.toString(httpClient.execute(request).getEntity());
-                System.out.println("gpt response received : \t" +responseString);
-                
-                ChatResponse chatResponse = gson.fromJson(responseString, ChatResponse.class);
-                
-                String content = chatResponse.getChoices().get(0).getMessage().getContent();
-                String html = MarkdownToHtmlConverter.convertMarkdownToHtml(content);
-                //create json list of the characters
-                String NPCInfo = extractNPCsSection(content);
-                if(NPCInfo.length()<100) NPCInfo = getLastWords(content,700);
-                jsonMap.remove("format");
-                jsonMap.put("format","csv");
-                jsonMap.remove("messages");
-                msgPrompt.put("content", "Extract npc characters from the text with their name and description. Create a csv of result in the format character_name,character_description.  \n Markdown text to extract from : " + NPCInfo);
-                messages.clear();
-                messages.add(msgPrompt);
-                jsonMap.put("messages", messages);
-                jsonBody = gson.toJson(jsonMap);
-                System.out.println("Sent to gpt\t" +jsonBody);
-                //return ResponseEntity.ok(jsonBody);
-                request.setEntity(new StringEntity(jsonBody));
-                
-                responseString = EntityUtils.toString(httpClient.execute(request).getEntity());
-                System.out.println("gpt response received : \t" +responseString);
-                
-                chatResponse = gson.fromJson(responseString, ChatResponse.class);
-                String jsonNPC = chatResponse.getChoices().get(0).getMessage().getContent();
-                
-                System.out.println("Json NPC\t " +jsonNPC );
-                Map<String, String> charactersMap = convertCSVToHashMap(jsonNPC);
-                Map<String, String> imageMap = dalleImageGenerator.generateImages(charactersMap, title);
-                String charactersHtml = generateHtmlDiv((HashMap<String, String>) imageMap);
-                Document doc = Jsoup.parse(html, "UTF-8");
-                String logoUrl = "file:///"+PDF_PATH +  "\\pdf\\logo_trans.png";
-                logoUrl = logoUrl.replace("\\", "/");
-                String coverPageHtml =
-                        "<div class=\"cover-page\" style=\"page-break-after: always; text-align: center; padding: 100px 0;\">" +
-                        "<img src=\""+logoUrl +"\" alt=\"Cover Image\" style=\"max-width: 100%; max-height:90%;height: auto;\">" +
-                        "<h1 style=\"margin-top: 50px; font-size: 36px;\">This campaign was generated by DNDGenerate</h1>" +
-                        "<a href=\"http://dndgenerate.com\" style=\"font-size: 24px; color: blue; text-decoration: none;\">http://dndgenerate.com</a>" +
-                        "</div>";
-                Element body = doc.body();
-                /*  Element link = doc.createElement("link");
-                link.attr("rel", "stylesheet");
-                link.attr("type", "text/css");
-                link.attr("href", "file://"+PDF_PATH + "\\resources\\style.css");
-                */
-                String cssUrl = "file:///"+PDF_PATH + "\\pdf\\style.css";
-                cssUrl = cssUrl.replace("\\", "/");
-                String linkTag = String.format("<link rel=\"stylesheet\" type=\"text/css\" href=\"%s\" />",cssUrl );
-                // Parse the tag with XML parser to keep it self-closing
-                Element link = Jsoup.parse(linkTag, "", Parser.xmlParser()).selectFirst("link");
-                
-                doc.head().appendChild(link);
-                
-                body.prepend(coverPageHtml);
-                body.append(charactersHtml);
-                Document doc2 = Jsoup.parse(doc.toString(), "", Parser.xmlParser());
-                
-                
-                
-                
-                html =doc2.toString();
-                System.out.println("Html :\t " + doc.outerHtml());
-                LocalDateTime now = LocalDateTime.now();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-                String formattedDateTime = now.format(formatter);
-                if (title.isBlank()) { title = "Untitled Campaign " + formattedDateTime;}
-                String path = MarkdownToHtmlConverter.convertHtmlToPdf(html, PDF_PATH, "DnDGenerate Campaign - " +title);
-                //String responseString = jsonBody;
-                return ResponseEntity.ok("/pdf/"+Paths.get(path).getFileName().toString());
-            } catch (Exception e) {
-                e.printStackTrace();
-                return ResponseEntity.internalServerError().body("Error processing request");
-            }
-        } catch (IOException ex) {
-             Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
-             return ResponseEntity.internalServerError().body("Error processing request");
+            request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer "+OPENAI_KEY);
+            request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+            
+            //String jsonBody = "{\"prompt\": \"" + text + "\", \"max_tokens\": 150}";
+            // Using Jackson to create JSON
+            ObjectMapper mapper = new ObjectMapper();
+            Map<String, Object> jsonMap = new HashMap<>();
+            List<Map<String, Object>> messages = new ArrayList();
+            Map <String, Object> msg = new HashMap();
+            msg.put("role", "system");
+            msg.put("content", "You are a creative writer with good knowledge of dnd5e");
+            messages.add(msg);
+            Map <String, Object> msgPrompt = new HashMap();
+            msgPrompt.put("role", "user");
+            msgPrompt.put("content", text);
+            messages.add(msgPrompt);
+            jsonMap.put("messages", messages);
+            jsonMap.put("max_tokens", 3000);
+            jsonMap.put("model", "gpt-3.5-turbo");
+            /*List<String> formats = new ArrayList();
+            formats.add("markdown");
+            formats.add("csv");*/
+            jsonMap.put("format", "markdown");
+            
+            
+            Gson gson = new Gson();
+            String jsonBody = gson.toJson(jsonMap);
+            // jsonBody = "";
+            System.out.println("Sent to gpt\t" +jsonBody);
+            //return ResponseEntity.ok(jsonBody);
+            request.setEntity(new StringEntity(jsonBody));
+            
+            String responseString = EntityUtils.toString(httpClient.execute(request).getEntity());
+            System.out.println("gpt response received : \t" +responseString);
+            
+            ChatResponse chatResponse = gson.fromJson(responseString, ChatResponse.class);
+            
+            String content = chatResponse.getChoices().get(0).getMessage().getContent();
+            String html = MarkdownToHtmlConverter.convertMarkdownToHtml(content);
+            //create json list of the characters
+            String NPCInfo = extractNPCsSection(content);
+            if(NPCInfo.length()<100) NPCInfo = getLastWords(content,700);
+            jsonMap.remove("format");
+            jsonMap.put("format","csv");
+            jsonMap.remove("messages");
+            msgPrompt.put("content", "Extract npc characters from the text with their name and description. Create a csv of result in the format character_name,character_description.  \n Markdown text to extract from : " + NPCInfo);
+            messages.clear();
+            messages.add(msgPrompt);
+            jsonMap.put("messages", messages);
+            jsonBody = gson.toJson(jsonMap);
+            System.out.println("Sent to gpt\t" +jsonBody);
+            //return ResponseEntity.ok(jsonBody);
+            request.setEntity(new StringEntity(jsonBody));
+            
+            responseString = EntityUtils.toString(httpClient.execute(request).getEntity());
+            System.out.println("gpt response received : \t" +responseString);
+            
+            chatResponse = gson.fromJson(responseString, ChatResponse.class);
+            String jsonNPC = chatResponse.getChoices().get(0).getMessage().getContent();
+            
+            System.out.println("Json NPC\t " +jsonNPC );
+            Map<String, String> charactersMap = convertCSVToHashMap(jsonNPC);
+            Map<String, String> imageMap = dalleImageGenerator.generateImages(charactersMap, title);
+            String charactersHtml = generateHtmlDiv((HashMap<String, String>) imageMap);
+            Document doc = Jsoup.parse(html, "UTF-8");
+            String logoUrl = "file:///"+PDF_PATH +  "\\pdf\\logo_trans.png";
+            logoUrl = logoUrl.replace("\\", "/");
+            String coverPageHtml =
+                    "<div class=\"cover-page\" style=\"page-break-after: always; text-align: center; padding: 100px 0;\">" +
+                    "<img src=\""+logoUrl +"\" alt=\"Cover Image\" style=\"max-width: 100%; max-height:90%;height: auto;\">" +
+                    "<h1 style=\"margin-top: 50px; font-size: 36px;\">This campaign was generated by DNDGenerate</h1>" +
+                    "<a href=\"http://dndgenerate.com\" style=\"font-size: 24px; color: blue; text-decoration: none;\">http://dndgenerate.com</a>" +
+                    "</div>";
+            Element body = doc.body();
+            /*  Element link = doc.createElement("link");
+            link.attr("rel", "stylesheet");
+            link.attr("type", "text/css");
+            link.attr("href", "file://"+PDF_PATH + "\\resources\\style.css");
+            */
+            String cssUrl = "file:///"+PDF_PATH + "\\pdf\\style.css";
+            cssUrl = cssUrl.replace("\\", "/");
+            String linkTag = String.format("<link rel=\"stylesheet\" type=\"text/css\" href=\"%s\" />",cssUrl );
+            // Parse the tag with XML parser to keep it self-closing
+            Element link = Jsoup.parse(linkTag, "", Parser.xmlParser()).selectFirst("link");
+            
+            doc.head().appendChild(link);
+            
+            body.prepend(coverPageHtml);
+            body.append(charactersHtml);
+            Document doc2 = Jsoup.parse(doc.toString(), "", Parser.xmlParser());
+            
+            
+            
+            
+            html =doc2.toString();
+            System.out.println("Html :\t " + doc.outerHtml());
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+            String formattedDateTime = now.format(formatter);
+            if (title.isBlank()) { title = "Untitled Campaign " + formattedDateTime;}
+            String path = MarkdownToHtmlConverter.convertHtmlToPdf(html, PDF_PATH, "DnDGenerate Campaign - " +title);
+            //String responseString = jsonBody;
+            return ResponseEntity.ok("/pdf/"+Paths.get(path).getFileName().toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body("Error processing request");
         }
     }
     private static boolean isValidInput(String input) {
@@ -313,23 +309,33 @@ public class PdfGenerator {
 
         return lastWords.toString().trim();
     }
-    public File copyFileToTemp(String classpathLocation) throws IOException {
-        var resource = resourceLoader.getResource("classpath:" + classpathLocation);
-        //Path tempFilePath = Files.createTempFile("temp_", "_file");
-        File tempFile = new File(PDF_PATH + System.getProperty("file.separator") + classpathLocation);
-        tempFile.getParentFile().mkdirs();
-
-        try (InputStream inputStream = resource.getInputStream();
-             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                writer.write(line);
-                writer.newLine();
-            }
-        }
-
-        return tempFile;
+    public void copyFileToTemp(String classpathLocation)  {
+        InputStream inputStream = null;
+         try {
+             var resource = resourceLoader.getResource("classpath:" + classpathLocation);
+             //Path tempFilePath = Files.createTempFile("temp_", "_file");
+             File tempFile = new File(PDF_PATH + System.getProperty("file.separator") + classpathLocation);
+             tempFile.getParentFile().mkdirs();
+             inputStream = resource.getInputStream();
+             Files.copy(inputStream, Paths.get(PDF_PATH + System.getProperty("file.separator") + classpathLocation), StandardCopyOption.REPLACE_EXISTING);
+             //BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+                
+             /*BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+             
+             String line;
+             while ((line = reader.readLine()) != null) {
+             writer.write(line);
+             writer.newLine();
+             }*/
+            // return tempFile;
+         } catch (IOException ex) {
+             Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+         } finally {
+             try {
+                 inputStream.close();
+             } catch (IOException ex) {
+                 Logger.getLogger(PdfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+             }
+         }
     }
 }
